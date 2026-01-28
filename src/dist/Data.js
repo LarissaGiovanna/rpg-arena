@@ -31,4 +31,27 @@ export class motorista {
         this.carro = carro;
     }
 }
+// get e set
+//export class Data {
+//     public constructor(dia: number = 1, mes: number = 1, ano: number = 1970) {
+//         this.dia = dia;
+//         this.mes = mes;
+//         this.ano = ano;
+//     }
+//     private dia: number;
+//     private mes: number;
+//     private ano: number;
+//     public get Dia(): number {
+//         return this.dia;
+//     }
+//     public set Dia(dia: number) {
+//         this.dia = dia;
+//     }
+//     public get Mes(): number {
+//         return this.mes;
+//     }
+//     public get Ano(): number {
+//         return this.ano;
+//     }
+// }
 //# sourceMappingURL=Data.js.map
