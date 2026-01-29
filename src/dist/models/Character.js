@@ -1,12 +1,15 @@
 import { ClassCharacter } from "../enums/ClassCharacter";
+import { InventoryFullError } from "../errors/InventoryFullError.js";
 export class Character {
     constructor(name, charClass, level) {
+        this.attackPower = 0;
+        this.mana = 0;
         this.defense = 0;
         this.name = name;
         this.class = charClass;
         this.level = level;
         this.life = level * 10;
-        this.maxLife = 200;
+        this.maxLife = level * 10;
         this.inventory = [];
     }
     //basic infos
@@ -30,14 +33,14 @@ export class Character {
         this.life -= actualDamage;
     }
     heal(amount) {
-        this.life += amount;
+        this.life = Math.min(this.life + amount, this.maxLife);
     }
     addItemToInventory(item) {
-        if (this.inventory.length <= 5) {
+        if (this.inventory.length < 5) {
             this.inventory.push(item);
         }
         else {
-            throw new Error;
+            throw new InventoryFullError("Inventory is full");
         }
     }
     useItem(item) {

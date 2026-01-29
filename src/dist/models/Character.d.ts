@@ -4,8 +4,10 @@ export declare abstract class Character {
     readonly name: string;
     class: ClassCharacter;
     level: number;
+    attackPower: number;
+    mana: number;
     defense: number;
-    private life;
+    life: number;
     private maxLife;
     inventory: IItem[];
     constructor(name: string, charClass: ClassCharacter, level: number);

@@ -1,12 +1,15 @@
 import { ClassCharacter } from "../enums/ClassCharacter";
 import type { IItem } from "../interfaces/IItem.js";
+import { InventoryFullError } from "../errors/InventoryFullError.js";
 
 export abstract class Character {
     public readonly name: string;
     public class: ClassCharacter;
     public level: number;
+    public attackPower: number = 0;
+    public mana: number = 0;
     public defense: number = 0;
-    private life: number;
+    public life: number;
     private maxLife: number;
     public inventory: IItem[];
     
@@ -15,7 +18,7 @@ export abstract class Character {
         this.class = charClass;
         this.level = level;
         this.life = level * 10;
-        this.maxLife = 200;
+        this.maxLife = level * 10;
         this.inventory = [];
     }
     //basic infos
@@ -40,13 +43,13 @@ export abstract class Character {
         this.life -= actualDamage;
     }
     public heal(amount: number): void {
-        this.life += amount;
+        this.life = Math.min(this.life + amount, this.maxLife);
     }
     public addItemToInventory(item: IItem): void {
-        if (this.inventory.length <= 5) {
+        if (this.inventory.length < 5) {
             this.inventory.push(item);
         }else{
-            throw new Error;
+            throw new InventoryFullError("Inventory is full");
         }
     }
     public useItem(item: IItem): void {

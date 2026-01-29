@@ -1,0 +1,1 @@
+{"version":3,"file":"NoEnoughManaError.js","sourceRoot":"","sources":["../../errors/NoEnoughManaError.ts"],"names":[],"mappings":"AAAA,MAAM,OAAO,iBAAkB,SAAQ,KAAK;IACxC,YAAY,OAAe;QACvB,KAAK,CAAC,OAAO,CAAC,CAAC;QACf,IAAI,CAAC,IAAI,GAAG,mBAAmB,CAAC;IACpC,CAAC;CACJ"}

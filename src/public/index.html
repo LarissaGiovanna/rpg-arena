@@ -1,14 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>RPG Arena</title>
+    <link rel="stylesheet" href="../public/styles/style.css">
 </head>
+
 <body>
-    <h1>a</h1>
-    <input type="text">
-    <button onclick="click()">Click me</button>
+    <main>
+        <nav id="choose_fighter">
+            <h1>Choose your fighter</h1>
+            <p>Choose max 3 fighters</p>
+            <div id="fighters_container">
+                <div id="player1">
+                    <ul>
+                        <li><img src="../public/assets/warrior.svg" alt="Warrior">
+                            <div>
+                                <p> Warrior</p>
+                                <button onclick="selectFighter(name, 'warrior', 1)">Choose</button>
+                            </div>
+                        </li>
+                        <li><img src="../public/assets/mage.svg" alt="Mage">
+                            <div>
+                                <p> Mage</p>
+                                <button onclick="selectFighter(name, 'mage', 1)">Choose</button>
+                            </div>
+                        <li><img src="../public/assets/arrowman.svg" alt="ArrowMan">
+                            <div>
+                                <p> ArrowMan</p>
+                                <button onclick="selectFighter(name, 'arrowman', 1)">Choose</button>
+                            </div>
+                        </li>
+                        <li><img src="../public/assets/cleric.svg" alt="Cleric">
+                            <div>
+                                <p> Cleric</p>
+                                <button onclick="selectFighter(name, 'cleric', 1)">Choose</button>
+                            </div>
+                    </ul>
+                </div>
+                <div id="player2">
+                    <ul>
+                        <li><img src="../public/assets/warrior.svg" alt="Warrior">
+                            <div>
+                                <p> Warrior</p>
+                                <button onclick="selectFighter(name, 'warrior', 1)">Choose</button>
+                            </div>
+                        <li><img src="../public/assets/mage.svg" alt="Mage">
+                            <div>
+                                <p> Mage</p>
+                                <button onclick="selectFighter(name, 'mage', 1)">Choose</button>
+                            </div>
+                        <li><img src="../public/assets/arrowman.svg" alt="ArrowMan"><div>
+                                <p> ArrowMan</p>
+                                <button onclick="selectFighter(name, 'arrowman', 1)">Choose</button>
+                        </div>
+                        </li>
+                        <li><img src="../public/assets/cleric.svg" alt="Cleric">
+                            <div>
+                                <p> Cleric</p>
+                                <button onclick="selectFighter(name, 'cleric', 1)">Choose</button>
+                            </div>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </main>
+
+
+    <script src="../dist/app.js"></script>
     <script src="../dist/basico.js" type="module"></script>
 </body>
+
 </html>
