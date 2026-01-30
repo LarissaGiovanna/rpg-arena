@@ -1,8 +1,4 @@
 import { Character } from "../models/Character.js";
-import { Warrior } from "../models/Warrior.js";
-import { Cleric } from "../models/Cleric.js";
-import { Mage } from "../models/Mage.js";
-import { Arrowman } from "../models/ArrowMan.js";
 import { FighterDontFoundError } from "../errors/FighterDontFoundError.js";
 import { MaxFightersError } from "../errors/MaxFightersError.js";
 
