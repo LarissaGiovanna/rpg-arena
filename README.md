@@ -2,6 +2,9 @@
 
 <div align="center">
 
+[![English](https://img.shields.io/badge/lang-English-blue.svg)](./README.en.md)
+[![Português](https://img.shields.io/badge/lang-Portugu%C3%AAs-green.svg)](./README.md)
+
 ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
 ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
@@ -331,3 +334,9 @@ Desenvolvido por **LarissaGiovanna** como projeto final do curso de TypeScript.
 Este projeto foi desenvolvido para fins educacionais.
 
 ---
+
+<div align="center">
+
+**⚔️ Que a melhor estratégia vença! ⚔️**
+
+</div>
