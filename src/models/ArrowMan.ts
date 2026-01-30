@@ -1,10 +1,11 @@
 import { ClassCharacter } from "../enums/ClassCharacter.js";
 import { Character } from "./Character.js";
+import { NoEnoughManaError } from "../errors/NoEnoughManaError.js";
 
 export class Arrowman extends Character {
 
     constructor(name: string, level: number) {
-        super (name, ClassCharacter.ARROWMAN, level);
+        super(name, ClassCharacter.ARROWMAN, level);
         this.defense = level;
         this.life = 100;
         this.attackPower = 15;
@@ -17,7 +18,8 @@ export class Arrowman extends Character {
         if (randomNumber <= 0.3) {
             const damage = this.level * 2 + this.attackPower;
             target.receiveDamage(damage);
-        return damage;}
+            return damage;
+        }
         else {
             const damage = this.level + this.attackPower;
             target.receiveDamage(damage);
@@ -26,10 +28,14 @@ export class Arrowman extends Character {
     }
 
     public PreciseShot(target: Character): number {
-        const damage = this.level * 1.5 + this.attackPower;
-        target.receiveDamage(damage);
-        this.mana -= 15;
-        return damage;
+        if (this.mana >= 15) {
+            const damage = this.level * 1.5 + this.attackPower;
+            target.receiveDamage(damage);
+            this.mana -= 15;
+            return damage;
+        }
+        else {
+            throw new NoEnoughManaError("Not enough mana to cast PreciseShot");
+        }
     }
-    
 }

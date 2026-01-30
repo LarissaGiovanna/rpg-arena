@@ -10,13 +10,13 @@ export class Mage extends Character {
         this.mana = 100;
     }
     Fireball(target) {
-        try {
+        if (this.mana >= 30) {
             const damage = this.level * 3 + this.attackPower;
             target.receiveDamage(damage);
             this.mana -= 30;
             return damage;
         }
-        catch {
+        else {
             throw new NoEnoughManaError("Not enough mana to cast Fireball");
         }
     }

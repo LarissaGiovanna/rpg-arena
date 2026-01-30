@@ -1,5 +1,6 @@
 import { ClassCharacter } from "../enums/ClassCharacter.js";
 import { Character } from "./Character.js";
+import { NoEnoughManaError } from "../errors/NoEnoughManaError.js";
 export class Cleric extends Character {
     constructor(name, level) {
         super(name, ClassCharacter.CLERIC, level);
@@ -14,10 +15,15 @@ export class Cleric extends Character {
         return healAmount;
     }
     HolySmite(target) {
-        const damage = this.level * 2 + this.attackPower;
-        target.receiveDamage(damage);
-        this.mana -= 20;
-        return damage;
+        if (this.mana >= 20) {
+            const damage = this.level * 2 + this.attackPower;
+            target.receiveDamage(damage);
+            this.mana -= 20;
+            return damage;
+        }
+        else {
+            throw new NoEnoughManaError("Not enough mana to cast HolySmite");
+        }
     }
 }
 //# sourceMappingURL=Cleric.js.map
