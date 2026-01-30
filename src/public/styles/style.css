@@ -21,6 +21,13 @@ main{
     gap: 20px;
 }
 
+.title-choose, #player1-area h2, #player2-area h2{
+    text-align: center;
+    color: white;
+    font-family: 'Arial', sans-serif;
+    text-shadow: 2px 2px 4px #000000;
+}
+
 #choose_fighter nav{
     display: flex;
     justify-content: center;
