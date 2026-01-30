@@ -76,78 +76,265 @@ function selectFighter(name: string, charClass: string, level: number, player: n
 
 function startBattle(): void {
     //initial setup
-    const fightersContainer = document.getElementById('fighters_container');
-    if (fightersContainer) {
-        fightersContainer.style.display = 'none';
+    const chooseFighter = document.getElementById('choose_fighter');
+    const startBattleBtn = document.getElementById('start_battle_btn');
+    if (startBattleBtn) {
+        startBattleBtn.style.display = 'none';
+    }
+    if (chooseFighter) {
+        chooseFighter.style.display = 'none';
     }
 
     logToConsole("Battle started between Player 1 and Player 2!");
+    //placing the fighters in the battle area
+    showBattleInterface()
+
+    logToConsole("Fighters are in position. Player 1 starts the battle!");
+    //battle
+
+    createActionPanel()
+}
+
+function showBattleInterface(): void {
     const areaPlayer1 = document.getElementById('player1-area');
     const areaPlayer2 = document.getElementById('player2-area');
     if (areaPlayer1 && areaPlayer2) {
-        player1Fighters.forEach(fighterInfo => {
-            const fighterDiv = document.createElement('div');
-            fighterDiv.className = 'fighter-card';
-            fighterDiv.textContent = fighterInfo;
-            console.log(fighterInfo);
-            if (fighterInfo.includes('Warrior')) {
-                const warriorImg = document.createElement('img');
-                warriorImg.src = './assets/warrior.svg';
-                warriorImg.alt = 'Warrior';
-                fighterDiv.appendChild(warriorImg);
-            } else if (fighterInfo.includes('Mage')) {
-                const mageImg = document.createElement('img');
-                mageImg.src = './assets/mage.svg';
-                mageImg.alt = 'Mage';
-                fighterDiv.appendChild(mageImg);
-            } else if (fighterInfo.includes('Cleric')) {
-                const clericImg = document.createElement('img');
-                clericImg.src = './assets/cleric.svg';
-                clericImg.alt = 'Cleric';
-                fighterDiv.appendChild(clericImg);
-            } else if (fighterInfo.includes('ArrowMan')) {
-                const arrowmanImg = document.createElement('img');
-                arrowmanImg.src = './assets/arrowman.svg';
-                arrowmanImg.alt = 'ArrowMan';
-                fighterDiv.appendChild(arrowmanImg);
-            }
-            areaPlayer1.appendChild(fighterDiv);
+
+        // Renderizar personagens do Player 1
+        areaPlayer1.innerHTML = '<h2>Player 1 Team</h2>';
+        arena.listFighters(1).forEach(fighter => {
+            areaPlayer1.innerHTML += createFighterCard(fighter, 1);
         });
 
-        player2Fighters.forEach(fighterInfo => {
-            const fighterDiv = document.createElement('div');
-            fighterDiv.className = 'fighter-card';
-            fighterDiv.textContent = fighterInfo;
-            console.log(fighterInfo);
-            if (fighterInfo.includes('Warrior')) {
-                const warriorImg = document.createElement('img');
-                warriorImg.src = './assets/warrior.svg';
-                warriorImg.alt = 'Warrior';
-                fighterDiv.appendChild(warriorImg);
-            } else if (fighterInfo.includes('Mage')) {
-                const mageImg = document.createElement('img');
-                mageImg.src = './assets/mage.svg';
-                mageImg.alt = 'Mage';
-                fighterDiv.appendChild(mageImg);
-            } else if (fighterInfo.includes('Cleric')) {
-                const clericImg = document.createElement('img');
-                clericImg.src = './assets/cleric.svg';
-                clericImg.alt = 'Cleric';
-                fighterDiv.appendChild(clericImg);
-            } else if (fighterInfo.includes('ArrowMan')) {
-                const arrowmanImg = document.createElement('img');
-                arrowmanImg.src = './assets/arrowman.svg';
-                arrowmanImg.alt = 'ArrowMan';
-                fighterDiv.appendChild(arrowmanImg);
-            }
-            areaPlayer2.appendChild(fighterDiv);
+        // Renderizar personagens do Player 2
+        areaPlayer2.innerHTML = '<h2>Player 2 Team</h2>';
+        arena.listFighters(2).forEach(fighter => {
+            areaPlayer2.innerHTML += createFighterCard(fighter, 2);
         });
+
         areaPlayer1.style.display = 'block';
         areaPlayer2.style.display = 'block';
     }
+}
 
-    //battle
+function createFighterCard(fighter: Character, player: number): string {
+    return `
+        <div class="fighter-card ${fighter.isAlive() ? 'alive' : 'dead'}" 
+             id="fighter-${player}-${fighter.name}">
+            <h3>${fighter.name}</h3>
+            <img src="./assets/${fighter.constructor.name.toLowerCase()}.svg" alt="${fighter.constructor.name}">
+            <p>Class: ${fighter.class}</p>
+            <div class="hp-bar">
+                <div class="hp-fill" style="width: ${(fighter.getLife() / fighter['maxLife']) * 100}%"></div>
+                <span>${fighter.getLife()} HP</span>
+            </div>
+            <p>Mana: ${fighter.mana}</p>
+            <p>Attack: ${fighter.attackPower} | Defense: ${fighter.defense}</p>
+        </div>
+    `;
+}
+
+function createActionPanel(): void {
+    const actionPanel = document.getElementById('action-panel');
+    if (!actionPanel) {
+        // Criar elemento se não existir
+        const panel = document.createElement('div');
+        panel.id = 'action-panel';
+        document.querySelector('main')?.appendChild(panel);
+    }
+
+    updateActionPanel();
+}
+
+function updateActionPanel(): void {
+    const actionPanel = document.getElementById('action-panel');
+    const fightContainer = document.getElementById('fight-container');
+    if (fightContainer) {
+        fightContainer.style.display = 'flex';
+    }
+
+
+    if (!actionPanel) createActionPanel();
+    else {
+        const currentPlayer = arena.getCurrentPlayer();
+        const aliveFighters = arena.getAliveFighters(currentPlayer);
+
+        actionPanel.innerHTML = `
+        <h2>Player ${currentPlayer}'s Turn</h2>
+        
+        <div class="action-section">
+            <label>1. Choose your attacker:</label>
+            <select id="attacker-select" onchange="updateActionOptions()">
+                ${aliveFighters.map(f => `<option value="${f.name}">${f.name} (${f.class})</option>`).join('')}
+            </select>
+        </div>
+
+        <div class="action-section">
+            <label>2. Choose action:</label>
+            <select id="action-select" onchange="updateActionOptions()">
+                <option value="basic">Basic Attack</option>
+                <option value="skill">Special Skill</option>
+            </select>
+        </div>
+
+        <div class="action-section" id="skill-options" style="display: none;">
+            <label>Choose skill:</label>
+            <select id="skill-select">
+                <!-- Preenchido dinamicamente -->
+            </select>
+        </div>
+
+        <div class="action-section">
+            <label>3. Choose target:</label>
+            <select id="target-select">
+                ${arena.getAliveFighters(currentPlayer === 1 ? 2 : 1).map(f =>
+            `<option value="${f.name}">${f.name} (${f.class})</option>`
+        ).join('')}
+            </select>
+        </div>
+
+        <button onclick="executeAction()">Execute Action</button>
+    `;
+    }
+}
+
+function updateActionOptions(): void {
+    const actionSelect = document.getElementById('action-select') as HTMLSelectElement;
+    const skillOptions = document.getElementById('skill-options') as HTMLDivElement;
+    const skillSelect = document.getElementById('skill-select') as HTMLSelectElement;
+    const attackerSelect = document.getElementById('attacker-select') as HTMLSelectElement;
+
+    if (!actionSelect || !skillOptions || !skillSelect || !attackerSelect) return;
+
+    if (actionSelect.value === 'skill') {
+        // Pegar o lutador selecionado
+        const currentPlayer = arena.getCurrentPlayer();
+        const attackerName = attackerSelect.value;
+        const attacker = arena.findFighterByName(attackerName, currentPlayer);
+
+        // Determinar as habilidades baseado na classe
+        let skills: string[] = [];
+
+        if (attacker instanceof Warrior) {
+            skills = ['Warrior Attack'];
+        } else if (attacker instanceof Mage) {
+            skills = ['Fireball'];
+        } else if (attacker instanceof Arrowman) {
+            skills = ['Precise Shot'];
+        } else if (attacker instanceof Cleric) {
+            skills = ['Holy Smite'];
+        }
+
+        // Popular o select com as habilidades
+        skillSelect.innerHTML = skills.map(skill => `<option value="${skill}">${skill}</option>`).join('');
+
+        // Mostrar o skill-options
+        skillOptions.style.display = 'block';
+    } else {
+        // Esconder o skill-options se "Basic Attack" foi selecionado
+        skillOptions.style.display = 'none';
+    }
+}
+
+function executeAction(): void {
+    const attackerName = (document.getElementById('attacker-select') as HTMLSelectElement).value;
+    const actionType = (document.getElementById('action-select') as HTMLSelectElement).value;
+    const targetName = (document.getElementById('target-select') as HTMLSelectElement).value;
+
+    const currentPlayer = arena.getCurrentPlayer();
+    const enemyPlayer = currentPlayer === 1 ? 2 : 1;
+
+    try {
+        const attacker = arena.findFighterByName(attackerName, currentPlayer);
+        const target = arena.findFighterByName(targetName, enemyPlayer);
+
+        let damage = 0;
+
+        if (actionType === 'basic') {
+            damage = attacker.attack(target);
+            logToConsole(`${attacker.name} attacks ${target.name} for ${damage} damage!`);
+        } else if (actionType === 'skill') {
+            damage = executeSkill(attacker, target);
+            // Atualizar o atacante também (depois de usar skill que consome mana)
+            updateFighterDisplay(attacker, currentPlayer);
+        }
+
+        // Atualizar interface do alvo
+        updateFighterDisplay(target, enemyPlayer);
+
+        // Verificar se há vencedor
+        const winner = arena.checkWinner();
+        if (winner) {
+            endBattle(winner);
+            return;
+        }
+
+        // Trocar turno
+        arena.switchTurn();
+        logToConsole(`\n--- Player ${arena.getCurrentPlayer()}'s turn ---`);
+        updateActionPanel();
+
+    } catch (error) {
+        logToConsole(`ERROR: ${(error as Error).message}`);
+    }
+}
+
+function executeSkill(attacker: Character, target: Character): number {
+    let damage = 0;
+
+    if (attacker instanceof Warrior) {
+        damage = attacker.WarriorAttack(target);
+        logToConsole(`${attacker.name} uses Warrior Attack on ${target.name}! ${damage} damage!`);
+    } else if (attacker instanceof Mage) {
+        damage = attacker.Fireball(target);
+        logToConsole(`${attacker.name} casts Fireball on ${target.name}! ${damage} damage!`);
+    } else if (attacker instanceof Arrowman) {
+        damage = attacker.PreciseShot(target);
+        logToConsole(`${attacker.name} shoots Precise Shot at ${target.name}! ${damage} damage!`);
+    } else if (attacker instanceof Cleric) {
+        damage = attacker.HolySmite(target);
+        logToConsole(`${attacker.name} uses Holy Smite on ${target.name}! ${damage} damage!`);
+    }
+
+    return damage;
+}
+
+function updateFighterDisplay(fighter: Character, player: number): void {
+    const card = document.getElementById(`fighter-${player}-${fighter.name}`);
+    if (!card) return;
+
+    // Atualizar HP
+    const hpPercentage = (fighter.getLife() / fighter['maxLife']) * 100;
+    card.querySelector('.hp-fill')?.setAttribute('style', `width: ${hpPercentage}%`);
     
+    const hpSpan = card.querySelector('.hp-fill + span');
+    if (hpSpan) {
+        hpSpan.textContent = `${fighter.getLife()} HP`;
+    }
+
+    // Atualizar Mana
+    const manaP = Array.from(card.querySelectorAll('p')).find(p => p.textContent.includes('Mana:'));
+    if (manaP) {
+        manaP.textContent = `Mana: ${fighter.mana}`;
+    }
+
+    // Marcar como morto
+    if (!fighter.isAlive()) {
+        card.classList.add('dead');
+        logToConsole(`💀 ${fighter.name} has been defeated!`);
+    }
+}
+
+function endBattle(winner: number): void {
+    logToConsole(`\n🏆 === PLAYER ${winner} WINS! === 🏆`);
+
+    const actionPanel = document.getElementById('action-panel');
+    if (actionPanel) {
+        actionPanel.innerHTML = `
+            <h1>🎉 Player ${winner} Wins! 🎉</h1>
+            <button onclick="location.reload()">Play Again</button>
+        `;
+    }
 }
 
 // destaque personagens style
@@ -155,3 +342,5 @@ function startBattle(): void {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 (window as any).selectFighter = selectFighter;
 (window as any).startBattle = startBattle;
+(window as any).executeAction = executeAction;
+(window as any).updateActionOptions = updateActionOptions;

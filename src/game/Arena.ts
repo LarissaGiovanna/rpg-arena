@@ -10,6 +10,26 @@ export class Arena {
     private fighters1: Character[] = [];
     private fighters2: Character[] = [];
 
+    private currentPlayer: number = 1;
+    private battleActive: boolean = false;
+    private battleLog: string[] = [];
+
+    public getCurrentPlayer(): number {
+        return this.currentPlayer;
+    }
+
+    public switchTurn(): void {
+        if (this.currentPlayer === 1) {
+            this.currentPlayer = 2;
+        } else {
+            this.currentPlayer = 1;
+        }
+    }
+
+    public isBattleActive(): boolean {
+        return this.battleActive;
+    }
+
     public addFighter(fighter: Character, player: number): void {
         if (player === 1 && this.fighters1.length < 3) {
             if (this.fighters1.find(f => f.name === fighter.name)) {
@@ -53,15 +73,33 @@ export class Arena {
         return fighter;
     }
 
-    public battle(fighter1Qnt:number, fighter2Qnt:number, selectedCharacter1:string, selectedCharacter2:string, selectedCharacter1Action:string, selectedCharacter2Action:string, selectedCharacter1Target:string, selectedCharacter2Target:string): void {
-        console.log(`Battle started between Player 1 and Player 2 with ${fighter1Qnt} and ${fighter2Qnt} fighters respectively.`);
+    public startBattle(): void {
+        this.battleActive = true;
+        console.log("Battle started!");
+        this.battleLog = [];
+        this.currentPlayer = 1; // Player 1 starts
+    }
 
-        if (selectedCharacter1.toLowerCase() == 'warrior'){
-            if (selectedCharacter1Action.toLowerCase() == 'attack'){
-                //ataque
-                Warrior.attack(this.findFighterByName(selectedCharacter1, 1), this.findFighterByName(selectedCharacter1Target, 2));
-            }
+    public addLog(message: string): void {
+        this.battleLog.push(message);
+    }
+    
+    public getAliveFighters(player: number): Character[] {
+        if(player === 1){
+            let fighters = this.fighters1;
+            return fighters.filter(f => f.isAlive());
+        }else{
+            let fighters = this.fighters2;
+            return fighters.filter(f => f.isAlive());
         }
     }
-        
+
+    public checkWinner(): number | null {
+        const player1Alive = this.getAliveFighters(1).length > 0;
+        const player2Alive = this.getAliveFighters(2).length > 0;
+
+        if (!player1Alive) return 2;
+        if (!player2Alive) return 1;
+        return null;
+    }
 }

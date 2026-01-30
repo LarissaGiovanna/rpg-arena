@@ -9,6 +9,23 @@ export class Arena {
     constructor() {
         this.fighters1 = [];
         this.fighters2 = [];
+        this.currentPlayer = 1;
+        this.battleActive = false;
+        this.battleLog = [];
+    }
+    getCurrentPlayer() {
+        return this.currentPlayer;
+    }
+    switchTurn() {
+        if (this.currentPlayer === 1) {
+            this.currentPlayer = 2;
+        }
+        else {
+            this.currentPlayer = 1;
+        }
+    }
+    isBattleActive() {
+        return this.battleActive;
     }
     addFighter(fighter, player) {
         if (player === 1 && this.fighters1.length < 3) {
@@ -55,14 +72,33 @@ export class Arena {
         }
         return fighter;
     }
-    battle(fighter1Qnt, fighter2Qnt, selectedCharacter1, selectedCharacter2, selectedCharacter1Action, selectedCharacter2Action, selectedCharacter1Target, selectedCharacter2Target) {
-        console.log(`Battle started between Player 1 and Player 2 with ${fighter1Qnt} and ${fighter2Qnt} fighters respectively.`);
-        if (selectedCharacter1.toLowerCase() == 'warrior') {
-            if (selectedCharacter1Action.toLowerCase() == 'attack') {
-                //ataque
-                Warrior.attack(this.findFighterByName(selectedCharacter1, 1), this.findFighterByName(selectedCharacter1Target, 2));
-            }
+    startBattle() {
+        this.battleActive = true;
+        console.log("Battle started!");
+        this.battleLog = [];
+        this.currentPlayer = 1; // Player 1 starts
+    }
+    addLog(message) {
+        this.battleLog.push(message);
+    }
+    getAliveFighters(player) {
+        if (player === 1) {
+            let fighters = this.fighters1;
+            return fighters.filter(f => f.isAlive());
         }
+        else {
+            let fighters = this.fighters2;
+            return fighters.filter(f => f.isAlive());
+        }
+    }
+    checkWinner() {
+        const player1Alive = this.getAliveFighters(1).length > 0;
+        const player2Alive = this.getAliveFighters(2).length > 0;
+        if (!player1Alive)
+            return 2;
+        if (!player2Alive)
+            return 1;
+        return null;
     }
 }
 //# sourceMappingURL=Arena.js.map
