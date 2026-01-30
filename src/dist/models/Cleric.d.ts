@@ -1,4 +1,4 @@
-import { Character } from "./Character";
+import { Character } from "./Character.js";
 export declare class Cleric extends Character {
     constructor(name: string, level: number);
     ClericHeal(target: Character): number;

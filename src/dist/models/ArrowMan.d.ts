@@ -1,4 +1,4 @@
-import { Character } from "./Character";
+import { Character } from "./Character.js";
 export declare class Arrowman extends Character {
     constructor(name: string, level: number);
     attack(target: Character): number;

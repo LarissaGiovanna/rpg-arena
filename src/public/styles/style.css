@@ -16,6 +16,13 @@ main{
     height: 100%;
     gap: 20px;
 }
+
+#choose_fighter nav{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+}
 #fighters_container{
     display: flex;
     align-items: center;
@@ -46,7 +53,7 @@ main{
     font-weight: bold;
 }
 
-#player1 img, #player2 img{
+#player1 img, #player2 img, .fighter-card img{
     width: 130px;
     height: 130px;
     object-fit: contain;
@@ -58,4 +65,37 @@ main{
     align-items: center;
     gap: 5px;
 }
+.console{
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    font-family: 'Courier New', Courier, monospace;
+    padding: 10px;
+    margin-top: 20px;
+    width: 60%;
+    height: 150px;
+    overflow-y: auto;
+    border-radius: 10px;
+}
+.console p{
+    margin-bottom: 5px;
+}
 
+.console-and-btn{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+#start_battle_btn{
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+#start_battle_btn:hover{
+    background-color: #45a049;
+}

@@ -1,0 +1,1 @@
+{"version":3,"file":"MaxFightersError.js","sourceRoot":"","sources":["../../errors/MaxFightersError.ts"],"names":[],"mappings":"AAAA,MAAM,OAAO,gBAAiB,SAAQ,KAAK;IACvC,YAAY,OAAe;QACvB,KAAK,CAAC,OAAO,CAAC,CAAC;QACf,IAAI,CAAC,IAAI,GAAG,kBAAkB,CAAC;IACnC,CAAC;CACJ"}

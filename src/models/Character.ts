@@ -1,4 +1,4 @@
-import { ClassCharacter } from "../enums/ClassCharacter";
+import { ClassCharacter } from "../enums/ClassCharacter.js";
 import type { IItem } from "../interfaces/IItem.js";
 import { InventoryFullError } from "../errors/InventoryFullError.js";
 

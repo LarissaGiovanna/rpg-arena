@@ -1,4 +1,4 @@
-import { Character } from "./Character";
+import { Character } from "./Character.js";
 export declare class Mage extends Character {
     constructor(name: string, level: number);
     Fireball(target: Character): number;

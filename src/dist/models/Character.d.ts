@@ -1,4 +1,4 @@
-import { ClassCharacter } from "../enums/ClassCharacter";
+import { ClassCharacter } from "../enums/ClassCharacter.js";
 import type { IItem } from "../interfaces/IItem.js";
 export declare abstract class Character {
     readonly name: string;

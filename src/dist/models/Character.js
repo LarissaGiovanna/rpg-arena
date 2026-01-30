@@ -1,4 +1,4 @@
-import { ClassCharacter } from "../enums/ClassCharacter";
+import { ClassCharacter } from "../enums/ClassCharacter.js";
 import { InventoryFullError } from "../errors/InventoryFullError.js";
 export class Character {
     constructor(name, charClass, level) {

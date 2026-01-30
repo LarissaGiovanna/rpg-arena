@@ -1,4 +1,4 @@
-import { Character } from './Character';
+import { Character } from './Character.js';
 import { ClassCharacter } from '../enums/ClassCharacter.js';
 
 export class Warrior extends Character {

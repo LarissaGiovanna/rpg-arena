@@ -13,64 +13,79 @@
         <nav id="choose_fighter">
             <h1>Choose your fighter</h1>
             <p>Choose max 3 fighters</p>
-            <div id="fighters_container">
-                <div id="player1">
-                    <ul>
-                        <li><img src="../public/assets/warrior.svg" alt="Warrior">
-                            <div>
-                                <p> Warrior</p>
-                                <button onclick="selectFighter(name, 'warrior', 1)">Choose</button>
-                            </div>
-                        </li>
-                        <li><img src="../public/assets/mage.svg" alt="Mage">
-                            <div>
-                                <p> Mage</p>
-                                <button onclick="selectFighter(name, 'mage', 1)">Choose</button>
-                            </div>
-                        <li><img src="../public/assets/arrowman.svg" alt="ArrowMan">
-                            <div>
-                                <p> ArrowMan</p>
-                                <button onclick="selectFighter(name, 'arrowman', 1)">Choose</button>
-                            </div>
-                        </li>
-                        <li><img src="../public/assets/cleric.svg" alt="Cleric">
-                            <div>
-                                <p> Cleric</p>
-                                <button onclick="selectFighter(name, 'cleric', 1)">Choose</button>
-                            </div>
-                    </ul>
+            <nav>
+                <div id="fighters_container">
+                    <div id="player1">
+                        <ul>
+                            <li><img src="../public/assets/warrior.svg" alt="Warrior">
+                                <div>
+                                    <p> Warrior</p>
+                                    <button onclick="selectFighter('Sir Aldric', 'warrior', 1, 1)">Choose</button>
+                                </div>
+                            </li>
+                            <li><img src="../public/assets/mage.svg" alt="Mage">
+                                <div>
+                                    <p> Mage</p>
+                                    <button onclick="selectFighter('Eldrin', 'mage', 1, 1)">Choose</button>
+                                </div>
+                            <li><img src="../public/assets/arrowman.svg" alt="ArrowMan">
+                                <div>
+                                    <p> ArrowMan</p>
+                                    <button onclick="selectFighter('Robin', 'arrowman', 1, 1)">Choose</button>
+                                </div>
+                            </li>
+                            <li><img src="../public/assets/cleric.svg" alt="Cleric">
+                                <div>
+                                    <p> Cleric</p>
+                                    <button onclick="selectFighter('Seraphin', 'cleric', 1, 1)">Choose</button>
+                                </div>
+                        </ul>
+                    </div>
+                    <div id="player2">
+                        <ul>
+                            <li><img src="../public/assets/warrior.svg" alt="Warrior">
+                                <div>
+                                    <p> Warrior</p>
+                                    <button onclick="selectFighter('Darius', 'warrior', 1, 2)">Choose</button>
+                                </div>
+                            <li><img src="../public/assets/mage.svg" alt="Mage">
+                                <div>
+                                    <p> Mage</p>
+                                    <button onclick="selectFighter('Merlin', 'mage', 1, 2)">Choose</button>
+                                </div>
+                            <li><img src="../public/assets/arrowman.svg" alt="ArrowMan">
+                                <div>
+                                    <p> ArrowMan</p>
+                                    <button onclick="selectFighter('Kael', 'arrowman', 1, 2)">Choose</button>
+                                </div>
+                            </li>
+                            <li><img src="../public/assets/cleric.svg" alt="Cleric">
+                                <div>
+                                    <p> Cleric</p>
+                                    <button onclick="selectFighter('Benedict', 'cleric', 1, 2)">Choose</button>
+                                </div>
+                        </ul>
+                    </div>
                 </div>
-                <div id="player2">
-                    <ul>
-                        <li><img src="../public/assets/warrior.svg" alt="Warrior">
-                            <div>
-                                <p> Warrior</p>
-                                <button onclick="selectFighter(name, 'warrior', 1)">Choose</button>
-                            </div>
-                        <li><img src="../public/assets/mage.svg" alt="Mage">
-                            <div>
-                                <p> Mage</p>
-                                <button onclick="selectFighter(name, 'mage', 1)">Choose</button>
-                            </div>
-                        <li><img src="../public/assets/arrowman.svg" alt="ArrowMan"><div>
-                                <p> ArrowMan</p>
-                                <button onclick="selectFighter(name, 'arrowman', 1)">Choose</button>
-                        </div>
-                        </li>
-                        <li><img src="../public/assets/cleric.svg" alt="Cleric">
-                            <div>
-                                <p> Cleric</p>
-                                <button onclick="selectFighter(name, 'cleric', 1)">Choose</button>
-                            </div>
-                    </ul>
-                </div>
-            </div>
+                <nav class="console-and-btn">
+                    <div class="console">
+                        <p>Actions and battle logs will appear here.</p>
+                    </div>
+                    <button id="start_battle_btn" onclick="startBattle()">Start Battle</button>
+                </nav>
+            </nav>
         </nav>
+        <div id="fight-container">
+            <div id="player1-area">
+                <!-- addicionar personagens de acordo com a quantidade escolhida via javascript -->
+            </div>
+            <div id="player2-area"></div>
+        </div>
     </main>
 
 
-    <script src="../dist/app.js"></script>
-    <script src="../dist/basico.js" type="module"></script>
+    <script src="../dist/app.js" type="module"></script>
+    <!-- <script src="../dist/basico.js" type="module"></script> -->
 </body>
 
 </html>

@@ -1,6 +1,6 @@
-import { ClassCharacter } from "../enums/ClassCharacter";
+import { ClassCharacter } from "../enums/ClassCharacter.js";
 import { NoEnoughManaError } from "../errors/NoEnoughManaError.js";
-import { Character } from "./Character";
+import { Character } from "./Character.js";
 
 export class Mage extends Character {
 

@@ -1,5 +1,5 @@
-import { ClassCharacter } from "../enums/ClassCharacter";
-import { Character } from "./Character";
+import { ClassCharacter } from "../enums/ClassCharacter.js";
+import { Character } from "./Character.js";
 
 export class Arrowman extends Character {
 
