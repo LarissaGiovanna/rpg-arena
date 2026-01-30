@@ -122,7 +122,7 @@ function createFighterCard(fighter: Character, player: number): string {
         <div class="fighter-card ${fighter.isAlive() ? 'alive' : 'dead'}" 
              id="fighter-${player}-${fighter.name}">
             <h3>${fighter.name}</h3>
-            <img src="./assets/${fighter.constructor.name.toLowerCase()}.svg" alt="${fighter.constructor.name}">
+            <img src="src/public/assets/${fighter.constructor.name.toLowerCase()}.svg" alt="${fighter.constructor.name}">
             <p>Class: ${fighter.class}</p>
             <div class="hp-bar">
                 <div class="hp-fill" style="width: ${(fighter.getLife() / fighter['maxLife']) * 100}%"></div>
